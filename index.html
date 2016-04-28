@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8'>
+		<title>Cancer Rates in the US</title>
+		<link rel="icon" href="resources/logo.png">
+		<link href="style/main-style.css" type="text/css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<script src="js/d3-slider.js"></script>
+
+	</head>
+
+	<body>
+    <div id="body-container">
+      <div id="header-bar">
+        <h1 id="page-title">Cancer&nbsp;Rates&nbsp;in&nbsp;the&nbsp;US</h1>
+      </div>
+			<div id="content-container">
+				<div class="selection left" data-toggle="buttons">
+		  		<label class="btn btn-primary">
+		    		<input value="Male" class="sex" type="radio" name="options" id="option1" autocomplete="off">Male
+		  		</label>
+		  		<label class="btn btn-primary active">
+		    		<input value="Female" type="radio" class="sex" name="options" id="option2" autocomplete="off" checked>Female
+		  		</label>
+				</div>
+
+				<div class="selection right" data-toggle="buttons">
+		  		<label class="btn btn-primary">
+		    		<input value = "White" type="radio" name="options" id="option1" autocomplete="off">White
+		  		</label>
+		  		<label class="btn btn-primary active">
+		    		<input value = "Black or African American" type="radio" name="options" id="option2" autocomplete="off" checked>Black or African American
+		  		</label>
+					<label class="btn btn-primary active">
+		    		<input value = "Asian or Pacific Islander" type="radio" name="options" id="option3" autocomplete="off" checked>Asian or Pacific Islander
+		  		</label>
+					<label class="btn btn-primary active">
+		    		<input value = "Other Races and Unknown combined" type="radio" name="options" id="option4" autocomplete="off" checked>Other Races and Unknown combined
+		  		</label>
+				</div>
+				<div id="vis" class="plate">
+
+				</div>
+			</div>
+	</body>
+
+	<script src="js/main-d3.js"></script>
+</html>
