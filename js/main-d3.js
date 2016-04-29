@@ -2,7 +2,9 @@ $(function() {
   d3.csv("../resources/us-cancer.csv", function(error, allData) {
     if (error) throw error;
 
-    var xScale, yScale, currentData;
+    var xScale;
+    var yScale;
+    var currentData = [];
 
     var sex = "Male";
     var race = "White";
@@ -68,41 +70,75 @@ $(function() {
       yAxisLabel.transition().duration(1000).call(yAxis);
 
       xAxisText.text("Year");
-      yAxisText.text("Incidence Rate of All Cancers");
+      yAxisText.text("Incidence of All Cancers");
     };
 
-    var createLines = d3.svg.line()
-        .x(function(d) { return xScale(d.Year); })
-        .y(function(d) { return yScale(d.Count); })
-        .interpolate("basis");
-
     var filterData = function() {
-      currentData = allData.filter(function(d) {
-        return d.Sex == sex && d.Race == race;
+      dataByState.forEach(function(state) {
+        var values = state.values;
+        var updateValues = values.filter(function(value) {
+            return value.Sex == sex && value.Race == race;
+        });
+
+        currentData.push({"key": state.key, "values": updateValues});
       });
-    }
+    };
+
+    var dataByState = d3.nest()
+        .key(function(d) { return d.State; })
+        .entries(allData);
+
+    var createLine = function(data) {
+      console.log("dataPassed: ", data);
+      d3.svg.line()
+          .x(function(d) { return xScale(d.Year); })
+          .y(function(d) { return yScale(d.Sale); })
+          .interpolate("basis");
+    };
 
     var draw = function(data) {
       setScales(data);
       setAxes();
 
-      g.append("svg:path")
-          .attr("d", createLines(data))
-          .attr("stroke", "green")
-          .attr("stroke-width", 2)
-          .attr("fill", "none");
-    }
+      var titleText = g.selectAll("text");
+      g.append("text")
+          .attr("class", "title")
+          .attr("y", -40)
+          .text("Incidence of All Cancers by State");
+      g.append("text")
+          .attr("class", "title")
+          .attr("y", -20)
+          .text("Current Selection: " + sex + ", " + race);
+
+      var paths = g.selectAll("path").data(data);
+      data.forEach(function(key) {
+        var valuesActual = [];
+        key.values.forEach(function(values) {
+          valuesActual.push({"Year": values.Year, "Count": values.Count});
+        });
+
+        console.log("valuesActual: " + key.key, valuesActual);
+
+        paths.enter().append("path")
+            .attr("d", createLine(valuesActual))
+            .attr("stroke", "teal")
+            .attr("stroke-width", 2)
+            .attr("fill", "none");
+
+      });
+
+
+      paths.exit().remove();
+      titleText.remove();
+    };
 
     $("input").on("change", function() {
-			// Get value, determine if it is the sex or type controller
 			var val = $(this).val();
 			var isSex = $(this).hasClass("sex");
 			if(isSex) sex = val;
 			else race = val;
 
-			// Filter data, update chart
 			filterData();
-      console.log(currentData);
 			draw(currentData);
 		});
 

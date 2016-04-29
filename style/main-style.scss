@@ -4,6 +4,7 @@ $off-white: #F0F0F0;
 $yellow: #D6C171;
 $red: #A34846;
 $blue: #467DA3;
+$green: #5CAE5A;
 
 body {
   margin: 0px;
@@ -19,7 +20,13 @@ body {
   left:0px;
 
   display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+
   align-items: center;
+  -webkit-justify-content: space-around;
   justify-content: space-around;
 
   text-align: center;
@@ -45,6 +52,10 @@ body {
 
 nav {
   display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   align-items: center;
 }
 
@@ -162,6 +173,160 @@ a {
   border-bottom: 2px solid $blue;
 }
 
+.allOptions {
+  width: 80%;
+
+  display: inline-flex;
+  align-content: center;
+
+  margin: 20px 10% 20px 10%;
+}
+
+.selection {
+  width: 80%;
+}
+
+.right {
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+
+  align-items: center;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  flex-flow: row wrap;
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+.optionTitle {
+  font-weight: 600;
+  font-style: normal;
+  font-family: "nyt-franklin", arial, helvetica, sans-serif;
+  color: #000;
+  
+  margin: 10px 0 10px 0;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font: arial, sans-serif;
+}
+
+.option1 {
+  background-color: $blue;
+  border: 2px solid $blue;
+  border-radius: 6px;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option1:hover {
+  background-color: white;
+  color: $blue;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option2 {
+  background-color: $red;
+  border: 2px solid $red;
+  border-radius: 6px;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option2:hover {
+  background-color: white;
+  color: $red;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option3 {
+  background-color: $yellow;
+  border: 2px solid $yellow;
+  border-radius: 6px;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option3:hover{
+  background-color: white;
+  color: $yellow;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option4 {
+  background-color: $green;
+  border: 2px solid $green;
+  border-radius: 6px;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option4:hover {
+  background-color: white;
+  color: $green;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option5{
+  background-color: $light-grey;
+  border: 2px solid $light-grey;
+  border-radius: 6px;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.option5:hover {
+  background-color: white;
+  color: $light-grey;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
 .ctnt-txt-ctnr {
   width: 50%;
   margin: 0 25% 0 25%;
@@ -191,7 +356,14 @@ em {
   text-decoration: underline;
 }
 
-/* Map Styling */
+/* Vis Styling */
+.title {
+  font-weight: 600;
+  font-style: normal;
+  font-family: "nyt-franklin", arial, helvetica, sans-serif;
+  color: #000;
+}
+
 .land {
   fill: #333;
 }
@@ -199,4 +371,19 @@ em {
 .state-boundary {
   fill: none;
   stroke: #fff;
+}
+
+.axis path {
+  fill: none;
+  stroke: #777;
+  shape-rendering: crispEdges;
+}
+.axis tick {
+  fill: none;
+  stroke: #777;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font-family: Lato;
+  font-size: 13px;
 }
