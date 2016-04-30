@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8'>
+		<title>Cancer Rates in the US</title>
+		<link rel="icon" href="resources/logo.png">
+		<link href="style/main-style.css" type="text/css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="js/d3-slider.js"></script>
+
+	</head>
+
+	<body>
+    <div id="body-container">
+      <div id="header-bar">
+        <h1 id="page-title">Cancer&nbsp;Rates&nbsp;in&nbsp;the&nbsp;US</h1>
+      </div>
+			<div id="content-container">
+				<div class="allOptions">
+					<div class="selection left">
+						<h2 class="optionTitle">Filter Gender</h2>
+						<label class="button option1">
+							<input value="Male" class="sex" type="radio" name="gender-options"
+							id="option1" autocomplete="off" checked>Male
+						</label>
+						<label class="button option2">
+							<input value="Female" class="sex" type="radio"
+							name="gender-options" id="option2" autocomplete="off">Female
+						</label>
+					</div>
+
+					<div class="selection right">
+						<h2 class="optionTitle">Filter Race</h2>
+						<label class="button option1">
+							<input value = "White" type="radio" name="race-options"
+							id="option1" autocomplete="off" checked>White
+						</label>
+						<label class="button option2">
+							<input value = "Black or African American" type="radio"
+							name="race-options" id="option2"
+							autocomplete="off">Black or African American
+						</label>
+						<label class="button option3">
+							<input value = "Asian or Pacific Islander" type="radio"
+							name="race-options" id="option3"
+							autocomplete="off">Asian or Pacific Islander
+						</label>
+						<label class="button option4">
+							<input value = "American Indian or Alaska Native" type="radio"
+							name="race-options" id="option4"
+							autocomplete="off">American Indian or Alaska Native
+						</label>
+						<label class="button option5">
+							<input value = "Other Races and Unknown combined" type="radio"
+							name="race-options" id="option5"
+							autocomplete="off">Other Races and Unknown combined
+						</label>
+					</div>
+				</div>
+				<div id="vis" class="plate">
+
+				</div>
+			</div>
+	</body>
+
+	<script src="js/main-d3.js"></script>
+</html>
