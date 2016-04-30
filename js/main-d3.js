@@ -1,5 +1,5 @@
 $(function() {
-  d3.csv("us-cancer.csv", function(error, allData) {
+  d3.csv("js/us-cancer.csv", function(error, allData) {
     if (error) throw error;
 
     var xScale;
