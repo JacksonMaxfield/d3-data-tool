@@ -5,6 +5,7 @@ $(function() {
     var xScale;
     var yScale;
     var currentData = [];
+    var colorScale = d3.scale.category10();
 
     var sex = "Male";
     var race = "White";
@@ -46,13 +47,25 @@ $(function() {
     	  .attr("class", "title");
 
     var setScales = function(data) {
-      var xMin = d3.min(data, function(d) { return parseInt(d.Year) });
-      var xMax = d3.max(data, function(d) { return parseInt(d.Year) });
+      var years = [];
+      data.forEach(function(d) {
+        d.values.forEach(function(e) {
+          years.push(+e.Year);
+        });
+      });
+      var counts = [];
+      data.forEach(function(d) {
+        d.values.forEach(function(e) {
+          counts.push(+e.Count);
+        });
+      });
+      var xMin = d3.min(years);
+      var xMax = d3.max(years);
 
       xScale = d3.scale.linear().range([0, width]).domain([xMin, xMax]);
 
-      var yMin = d3.min(data, function(d) { return parseInt(d.Count) });
-      var yMax = d3.max(data, function(d) { return parseInt(d.Count) });
+      var yMin = d3.min(counts);
+      var yMax = d3.max(counts);
 
       yScale = d3.scale.linear().range([height, 0]).domain([yMin, yMax]);
     };
@@ -60,11 +73,13 @@ $(function() {
     var setAxes = function() {
       var xAxis = d3.svg.axis()
           .scale(xScale)
-          .orient("bottom");
+          .orient("bottom")
+          .tickFormat(d3.format(""));
 
       var yAxis = d3.svg.axis()
           .scale(yScale)
-          .orient("left");
+          .orient("left")
+          .tickFormat(d3.format(","));
 
       xAxisLabel.transition().duration(1000).call(xAxis);
       yAxisLabel.transition().duration(1000).call(yAxis);
@@ -74,6 +89,8 @@ $(function() {
     };
 
     var filterData = function() {
+      currentData = [];
+
       dataByState.forEach(function(state) {
         var values = state.values;
         var updateValues = values.filter(function(value) {
@@ -88,13 +105,10 @@ $(function() {
         .key(function(d) { return d.State; })
         .entries(allData);
 
-    var createLine = function(data) {
-      console.log("dataPassed: ", data);
-      d3.svg.line()
-          .x(function(d) { return xScale(d.Year); })
-          .y(function(d) { return yScale(d.Sale); })
-          .interpolate("basis");
-    };
+    var createLine = d3.svg.line()
+          .x(function(d) { return xScale(+d.Year); })
+          .y(function(d) { return yScale(+d.Count); })
+          .interpolate("basis-open");
 
     var draw = function(data) {
       setScales(data);
@@ -110,26 +124,28 @@ $(function() {
           .attr("y", -20)
           .text("Current Selection: " + sex + ", " + race);
 
-      var paths = g.selectAll("path").data(data);
-      data.forEach(function(key) {
-        var valuesActual = [];
-        key.values.forEach(function(values) {
-          valuesActual.push({"Year": values.Year, "Count": values.Count});
-        });
+      var paths = g.selectAll("path").data(currentData);
 
-        console.log("valuesActual: " + key.key, valuesActual);
-
-        paths.enter().append("path")
-            .attr("d", createLine(valuesActual))
-            .attr("stroke", "teal")
-            .attr("stroke-width", 2)
-            .attr("fill", "none");
-
-      });
-
+      paths.enter().append("path")
+          .attr("d", function(d) { return createLine(d.values) })
+          .attr("stroke", function(d) { return colorScale(d.key)})
+          .attr("stroke-width", 2)
+          .attr("fill", "none")
+          .attr("title", function(d) { return d.key});
 
       paths.exit().remove();
       titleText.remove();
+
+      paths.transition()
+				  .duration(500)
+				  .attr("d", function(d) { return createLine(d.values) })
+          .attr("title", function(d) { return d.key });
+
+
+      $("path").tooltip({
+          'container': 'body',
+          'placement': 'top'
+      });
     };
 
     $("input").on("change", function() {

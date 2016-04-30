@@ -169,7 +169,8 @@ a {
   text-decoration: none;
   display: inline-block;
   font-size: 20px;
-  font: arial, sans-serif; }
+  font: arial, sans-serif;
+  margin: 5px 0 5px 0; }
 
 .option1 {
   background-color: #467DA3;
